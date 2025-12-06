@@ -208,7 +208,7 @@ impl<B> OnResponse<B> for ResponseLogger {
                 target: "vllm_router_rs::response",
                 "request failed with server error"
             );
-            error!("{}", status.as_str());
+            error!("status code: {}", status.as_str());
         } else if status.is_client_error() {
             warn!(
                 target: "vllm_router_rs::response",
