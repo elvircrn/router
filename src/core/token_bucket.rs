@@ -93,9 +93,6 @@ impl TokenBucket {
             let tokens_needed = tokens - inner.tokens;
             let wait_secs = tokens_needed / self.refill_rate;
 
-            if wait_secs < 0.0 {
-                error!("wait_secs < 0: {} {}", tokens_needed, self.refill_rate);
-            }
             Duration::from_secs_f64(wait_secs)
         };
 
