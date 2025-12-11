@@ -146,7 +146,13 @@ impl VllmPDRouter {
         request["stream"] = json!(false);
         // Remove stream_options since we're setting stream=false
         if let Some(obj) = request.as_object_mut() {
-            obj.remove("stream_options");
+           for key in [
+               "stream_options",
+               "no_stop_trim",
+               "return_hidden_states",
+           ] {
+               obj.remove(key);
+           }
         }
         request
     }
@@ -1195,7 +1201,7 @@ impl RouterTrait for VllmPDRouter {
             info!("Using direct URL mode with VllmPDRouter's own routing logic");
 
             // Convert request to JSON
-            let request_json = match serde_json::to_value(body) {
+            let mut request_json = match serde_json::to_value(body) {
                 Ok(json) => {
                     info!(
                         "Serialized completion request: {}",
@@ -1211,6 +1217,15 @@ impl RouterTrait for VllmPDRouter {
                         .into_response()
                 }
             };
+
+            if let Some(obj) = request_json.as_object_mut() {
+                for key in [
+                    "no_stop_trim",
+                    "return_hidden_states",
+                ] {
+                    obj.remove(key);
+                }
+            }
 
             // Get prefill and decode workers from worker_registry
             let prefill_workers = self.pd_router.worker_registry.get_prefill_workers();
