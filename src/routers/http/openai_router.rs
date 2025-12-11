@@ -37,6 +37,8 @@ impl OpenAIRouter {
         base_url: String,
         circuit_breaker_config: Option<CircuitBreakerConfig>,
     ) -> Result<Self, String> {
+        println!("DEBUG: Creating OpenAIRouter client");
+
         let client = reqwest::Client::builder()
             .timeout(std::time::Duration::from_secs(300))
             .build()
