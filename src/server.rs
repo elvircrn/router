@@ -575,7 +575,7 @@ pub async fn startup(config: ServerConfig) -> Result<(), Box<dyn std::error::Err
         .pool_idle_timeout(Some(Duration::from_secs(5)))
         .pool_max_idle_per_host(0)        // effectively disables keep-alive reuse
         .timeout(Duration::from_secs(config.request_timeout_secs))
-        .connect_timeout(Duration::from_secs(60))
+        .connect_timeout(Duration::from_secs(2000))
         .tcp_nodelay(true)
         .tcp_keepalive(None)              // disable OS-level keepalive; avoids stale sockets
         .build()
