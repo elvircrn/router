@@ -947,6 +947,7 @@ impl VllmPDRouter {
                 decode_urls.len()
             );
 
+
             // Create underlying PD router with provided worker lists
             let pd_router = PDRouter::new(prefill_urls, decode_urls, ctx).await?;
 

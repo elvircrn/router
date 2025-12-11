@@ -571,19 +571,10 @@ pub async fn startup(config: ServerConfig) -> Result<(), Box<dyn std::error::Err
 
     println!("DEBUG: Creating HTTP client");
     let client = Client::builder()
-        // Match aiohttp force_close=True: disable connection pooling entirely
-        .pool_max_idle_per_host(0)
-        .pool_idle_timeout(Some(Duration::from_secs(0)))
-
-        // Timeouts
+        .pool_idle_timeout(Duration::from_secs(0))   // keepalive disabled
+        .tcp_nodelay(true)
         .timeout(Duration::from_secs(2000))
         .connect_timeout(Duration::from_secs(2000))
-
-        // TCP settings — same behavior as aiohttp under force_close
-        .tcp_nodelay(true)
-        .tcp_keepalive(None)
-
-        // Build
         .build()
         .expect("Failed to create HTTP client");
     println!("DEBUG: HTTP client created");
