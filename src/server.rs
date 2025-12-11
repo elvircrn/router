@@ -571,19 +571,15 @@ pub async fn startup(config: ServerConfig) -> Result<(), Box<dyn std::error::Err
 
     println!("DEBUG: Creating HTTP client");
     let client = Client::builder()
-        // Match aiohttp force_close=True: no idle socket reuse
+        // Match aiohttp force_close=True: disable connection pooling entirely
         .pool_max_idle_per_host(0)
-        .pool_idle_timeout(Some(Duration::from_secs(0)))  // disable idle timeout caching
-
-        // DNS cache (reqwest only supports trust-dns if enabled via feature)
-        // ttl_dns_cache=300 cannot be configured directly, but enabling it provides caching behavior
-        .resolve_to_addrs(true)   // enables DNS result reuse if trust-dns is enabled
+        .pool_idle_timeout(Some(Duration::from_secs(0)))
 
         // Timeouts
         .timeout(Duration::from_secs(config.request_timeout_secs))
         .connect_timeout(Duration::from_secs(2))
 
-        // TCP settings — matches aiohttp semantics
+        // TCP settings — same behavior as aiohttp under force_close
         .tcp_nodelay(true)
         .tcp_keepalive(None)
 
