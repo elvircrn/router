@@ -571,12 +571,13 @@ pub async fn startup(config: ServerConfig) -> Result<(), Box<dyn std::error::Err
 
     println!("DEBUG: Creating HTTP client");
     let client = Client::builder()
-        .pool_idle_timeout(Some(Duration::from_secs(50)))
-        .pool_max_idle_per_host(500)
+        // Do not let idle sockets live too long — servers often kill them first.
+        .pool_idle_timeout(Some(Duration::from_secs(5)))
+        .pool_max_idle_per_host(0)        // effectively disables keep-alive reuse
         .timeout(Duration::from_secs(config.request_timeout_secs))
         .connect_timeout(Duration::from_secs(10))
         .tcp_nodelay(true)
-        .tcp_keepalive(Some(Duration::from_secs(30)))
+        .tcp_keepalive(None)              // disable OS-level keepalive; avoids stale sockets
         .build()
         .expect("Failed to create HTTP client");
     println!("DEBUG: HTTP client created");
