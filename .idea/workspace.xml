@@ -24,7 +24,10 @@
     </cargoProject>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="809cd235-225c-4e7f-8281-e425c27d211c" name="Changes" comment="" />
+    <list default="true" id="809cd235-225c-4e7f-8281-e425c27d211c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/server.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/server.rs" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -74,7 +77,7 @@
     "RunOnceActivity.readMode.enableVisualFormatting": "true",
     "cf.first.check.clang-format": "false",
     "cidr.known.project.marker": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "client",
     "last_opened_file_path": "/Users/ecrncevi/router",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -100,7 +103,7 @@
       <workItem from="1764113670766" duration="23636000" />
       <workItem from="1764783846625" duration="6027000" />
       <workItem from="1764933131190" duration="14150000" />
-      <workItem from="1765035846383" duration="36186000" />
+      <workItem from="1765035846383" duration="36691000" />
     </task>
     <servers />
   </component>

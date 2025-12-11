@@ -571,8 +571,8 @@ pub async fn startup(config: ServerConfig) -> Result<(), Box<dyn std::error::Err
 
     println!("DEBUG: Creating HTTP client");
     let client = Client::builder()
-        .pool_max_idle_per_host(0)      // force new connection each request
-        .timeout(Duration::from_secs(3600))
+        .pool_max_idle_per_host(0)
+        .pool_idle_timeout(None)
         .connect_timeout(Duration::from_secs(30))
         .build()
         .unwrap();
