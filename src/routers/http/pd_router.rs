@@ -585,6 +585,7 @@ impl PDRouter {
         // Individual routers no longer need to manage health checkers
 
         // Build a dedicated prefill client for fire-and-forget semantics
+        println!("DEBUG: Creating PD router");
         let prefill_client = reqwest::Client::builder()
             .pool_max_idle_per_host(0)
             .http1_only()
