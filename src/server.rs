@@ -576,8 +576,8 @@ pub async fn startup(config: ServerConfig) -> Result<(), Box<dyn std::error::Err
         .pool_idle_timeout(Some(Duration::from_secs(0)))
 
         // Timeouts
-        .timeout(Duration::from_secs(config.request_timeout_secs))
-        .connect_timeout(Duration::from_secs(2))
+        .timeout(Duration::from_secs(2000))
+        .connect_timeout(Duration::from_secs(2000))
 
         // TCP settings — same behavior as aiohttp under force_close
         .tcp_nodelay(true)
