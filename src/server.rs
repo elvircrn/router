@@ -571,14 +571,15 @@ pub async fn startup(config: ServerConfig) -> Result<(), Box<dyn std::error::Err
 
     println!("DEBUG: Creating HTTP client");
     let client = Client::builder()
-        .pool_max_idle_per_host(16)                  // allow bounded reuse
-        .pool_idle_timeout(Duration::from_secs(5))   // kill idle sockets quickly
+        .pool_max_idle_per_host(32768)     // do NOT set to 0
+        .pool_idle_timeout(Duration::from_secs(5))   // reap stale sockets quickly
         .tcp_keepalive(None)
-        .timeout(Duration::from_secs(2000))
         .connect_timeout(Duration::from_secs(2000))
+        .timeout(Duration::from_secs(2000))
         .tcp_nodelay(true)
         .build()
         .unwrap();
+
     println!("DEBUG: HTTP client created");
 
     // Create the application context with all dependencies
